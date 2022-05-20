@@ -1,0 +1,226 @@
+﻿@using BitcoinRhExplorer.Controllers
+@using NBitcoin
+@model BlockViewModel
+
+@section scripts {
+    <script type="text/javascript">
+        App.setOptions({
+            spa: false
+        });
+
+        subPage();
+
+        $(document).ready(function () {
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/Data/GetBlock/',
+                data: JSON.stringify("@Model.Hash.Trim()"),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+
+                    var template = "";
+
+                    if (response == "null") {
+                        template = "<p>Block doesnt exist!</p>";
+                    } else {
+                        var block = $.parseJSON(response);
+
+                        template = $('#blockTemplate').html();
+                        var transactionTemplate = $('#transactionTemplate').html();
+                        var transactions = "";
+
+                        template = template.replace("%%TRANSACTION", block.TransactionCount);
+                        template = template.replace("%%OUTPUT", block.TotalSatoshiFormatted);
+                        template = template.replace("%%FEE", block.TransactionFeesFormatted);
+                        template = template.replace("%%HEIGHT", block.Height);
+                        template = template.replace("%%CONF", block.Confirmations);
+                        template = template.replace("%%AGE", block.AgeFormatted);
+                        template = template.replace("%%DIFFICULT", block.Difficult);
+                        template = template.replace("%%BITS", block.Bits);
+                        template = template.replace("%%SIZE", block.Size);
+                        template = template.replace("%%VERSION", block.Version);
+                        template = template.replace(/%%HASH/g, block.Hash);
+                        template = template.replace(/%%PREVHASH/g, block.PrevHash == "0000000000000000000000000000000000000000000000000000000000000000" ? "#N/A" : block.PrevHash);
+                        template = template.replace(/%%NEXTHASH/g, block.NextHash == null ? "#N/A" : block.NextHash);
+                        template = template.replace("%%MERKLEHASH", block.MerkleRoot);
+
+                        if (block.Transactions != null) {
+                            for (var i = 0; i < block.Transactions.length; i++) {
+
+                                var titem = transactionTemplate;
+                                var tfrom = "";
+                                var tto = "";
+
+                                //TFROM
+                                if (block.Transactions[i].AddressFrom != null) {
+                                    for (var n = 0; n < block.Transactions[i].AddressFrom.length; n++) {
+                                        tfrom = tfrom + "<tr><td>" + block.Transactions[i].AddressFrom[n].Address + "</td></tr>";
+                                    }
+                                }
+
+                                //TTO
+                                if (block.Transactions[i].AddressTo != null) {
+                                    for (var n = 0; n < block.Transactions[i].AddressTo.length; n++) {
+                                        tto = tto + "<tr><td>" + block.Transactions[i].AddressTo[n].Address + "</td><td class=\"text-right\"><label class=\"status status-block\">" + block.Transactions[i].AddressTo[n].SatoshiFormatted + " XRC</label></tr>";
+                                    }
+
+                                    if (tfrom.length == 0) tfrom = "<tr><td>No Inputs (Newly Generated Coins)</td></tr>";
+                                }
+
+                                tfrom = "<tr><td><a href=\"/xrc/tx/" + block.Transactions[i].Hash + "\">" + block.Transactions[i].Hash + "</a></td></tr>" + tfrom;
+                                tto = "<tr><td colspan=\"2\"><strong>" + block.Transactions[i].TimeFormatted + "</strong></td></tr>" + tto;
+                                tto = tto + "<tr><td></td><td class=\"text-right\"><label class=\"status status-success\">" + block.Transactions[i].SatoshiFormatted + " XRC</label></td></tr>";
+
+                                titem = titem.replace("%%TTO", "<table><tbody>" + tto + "</tbody></table>");
+                                titem = titem.replace("%%TFROM", "<table><tbody>" + tfrom + "</tbody></table>");
+                                titem = titem.replace("%%TBTC", block.Transactions[i].SatoshiFormatted);
+
+                                transactions = transactions + titem;
+                            }
+
+                        }
+                    }
+
+                    $('#blockData').html(template);
+                    $('#transactionsData').html(transactions);
+
+                }
+            });
+        });
+    </script>
+}
+
+<div class="grid grid-responsive grid-12">
+    <div class="dashboard-widget">
+        <div class="title">
+            Block
+        </div>
+        <div class="content">
+            <div id="blockData">
+                <p>PLEASE WAIT...</p>
+                <i class="fa fa-spinner fa-spin fa-3x text-block"></i>
+            </div>
+            <div id="blockTemplate" style="display: none;">
+                <div class="grid grid-responsive grid-5">
+                    <div class="data-table">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th colspan="2">Summary</th>
+                                </tr>
+                                <tr>
+                                    <td>Number Of Transactions</td>
+                                    <td><strong>%%TRANSACTION</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Output Total</td>
+                                    <td><strong>%%OUTPUT XRC</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Transaction Fees</td>
+                                    <td><strong>%%FEE XRC</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Height</td>
+                                    <td><strong>#%%HEIGHT</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Confirmations</td>
+                                    <td><strong>%%CONF</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Age</td>
+                                    <td><strong>%%AGE UTC</strong></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Difficulty</td>
+                                    <td><strong>%%DIFFICULT</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Bits</td>
+                                    <td><strong>%%BITS</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Size</td>
+                                    <td><strong>%%SIZE bytes</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Version</td>
+                                    <td><strong>%%VERSION</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="grid grid-responsive grid-1"></div>
+                <div class="grid grid-responsive grid-6">
+                    <div class="data-table">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th colspan="2">Hashes</th>
+                                </tr>
+                                <tr>
+                                    <td>Hash</td>
+                                    <td>
+                                        <strong>%%HASH</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Previous Block</td>
+                                    <td><a class="hash-link" href="/xrc/block/%%PREVHASH">%%PREVHASH</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Next Block(s)</td>
+                                    <td><a class="hash-link" href="/xrc/block/%%NEXTHASH">%%NEXTHASH</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Merkle Root</td>
+                                    <td class="hash-link">%%MERKLEHASH</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="grid grid-responsive grid-12">
+    <div class="dashboard-widget">
+        <div class="title">
+            Transactions
+        </div>
+        <div class="content">
+            <div id="transactionsData" class="data-table">
+                <p>PLEASE WAIT...</p>
+                <i class="fa fa-spinner fa-spin fa-3x text-block"></i>
+            </div>
+            <div id="transactionTemplate" style="display: none;">
+                <div class="grid grid-responsive grid-5">
+                    <div class="data-table">
+                        %%TFROM
+                    </div>
+                </div>
+                <div class="grid grid-responsive grid-2 send-to">
+                    <i class="fa fa-arrow-right"></i>
+                </div>
+                <div class="grid grid-responsive grid-5">
+                    <div class="data-table">
+                        %%TTO
+                    </div>
+                </div>
+				 <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>

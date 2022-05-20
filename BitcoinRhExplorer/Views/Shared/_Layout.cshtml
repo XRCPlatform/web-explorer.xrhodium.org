@@ -1,0 +1,172 @@
+﻿@using BitcoinRhExplorer.Controllers
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@Html.Raw(View.Title) (XRC)</title>
+    <meta name="description" content="Official xRhodium block chain Explorer. xRhodium is not a fork of Bitcoin. It is a new crypto asset.">
+    <meta property="og:image" content="https://explorer.xrhodium.org/theme/preview.jpg">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <!-- CSS Library -->
+    <link rel="stylesheet" href="/theme/css/library/normalize.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/solid.css" integrity="sha384-+0VIRx+yz1WBcCTXBkVQYIBVNEFH1eP6Zknm16roZCyeNg2maWEpk/l/KsyFKs7G" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/fontawesome.css" integrity="sha384-jLuaxTTBR42U2qJ/pm4JRouHkEDHkVqH0T1nyQXn1mZ7Snycpf6Rl25VBNthU4z0" crossorigin="anonymous">
+    <link rel="stylesheet" href="/theme/css/library/jquery-ui-1.10.3.custom.min.css">
+    <!-- Theme -->
+    <link rel="stylesheet" href="/theme/css/theme/default/layout.css">
+    <link rel="stylesheet" href="/theme/css/theme/default/core_colour.css?v1">
+    <link rel="stylesheet" href="/theme/css/theme/default/colour7.css">
+    <!-- Third Party Plugins -->
+    <link rel="stylesheet" href="/theme/plugins/fullcalendar/fullcalendar.css">
+    <link rel="stylesheet" href="/theme/plugins/google-code-prettify/prettify.css">
+    <link rel="stylesheet" href="/theme/plugins/easy-pie-chart/jquery.easy-pie-chart.css">
+    <link rel="stylesheet" href="/theme/css/main.css?v3">
+
+    <!-- Favicon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png?v2">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png?v2">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png?v2">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png?v2">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png?v2">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png?v2">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png?v2">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png?v2">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png?v2">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png?v2">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png?v2">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png?v2">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png?v2">
+    <link rel="manifest" href="/manifest.json?v2">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png?v2">
+
+    @RenderSection("links", required: false)
+</head>
+<body>
+    <!-- loading screen -->
+    <div id="loading">
+        <div class="text"><img src="/theme/logo.png?v2" alt="xRhodium - Explorer" /></div>
+        <div class="dots"><div class="dot dot1"></div><div class="dot dot2"></div><div class="dot dot3"></div><div class="dot dot4"></div><div class="dot dot5"></div></div>
+    </div>
+    <!-- End -->
+    <!-- Portrait Detector -->
+    <div id="portrait_mode_detector"></div>
+    <!-- End -->
+    <div id="layout-container">
+        <!-- Menu -->
+        <div id="nav">
+            <!-- Profile -->
+            <div class="profile">
+                <div class="avatar">
+                    <a href="/"><img src="/theme/logo.png?v2" alt="xRhodium - Explorer" /></a>
+                </div>
+            </div>
+            <!-- End -->
+            <!-- Menu -->
+            <ul class="navigation">
+                <li class="separator"><div></div><div></div><div></div></li>
+                <li><a href="/" class=""><i class="fa fa-home"></i><span>Dashboard</span></a></li>
+                <li class="separator"><div></div><div></div><div></div></li>
+                <li><a href="http://testnet.xrhodium.org/#electrum"><i class="fa fa-chalkboard"></i><span>T-Electrum<br />Wallet</span></a></li>
+                <li class="separator"><div></div><div></div><div></div></li>
+                <li><a href="http://twallet.xrhodium.org/"><i class="fa fa-wallet"></i><span>T-Web Wallet</span></a></li>
+                <li class="separator"><div></div><div></div><div></div></li>
+                <li><a href="http://tpool.xrhodium.org:8888/"><i class="fa fa-gavel"></i><span>Mining T-Pool</span></a></li>
+                <li class="separator"><div></div><div></div><div></div></li>
+                <li><a href="https://www.xrhodium.org/"><i class="fa fa-globe"></i><span>BRhodium<br />HomePage</span></a></li>
+                <li class="separator"><div></div><div></div><div></div></li>
+                <li><a href="http://testnet.xrhodium.org/"><i class="fa fa-globe"></i><span>TestNet<br />HomePage</span></a></li>
+                <li class="separator"><div></div><div></div><div></div></li>
+            </ul>
+            <!-- End -->
+        </div>
+        <!-- End -->
+        <!-- Page Container -->
+        <div id="main">
+            <div class="page-title">
+                <div class="menu-switch"><i class="fa fa-bars"></i></div>
+                <img src="/theme/logobig.png?v2" alt="xRhodium" class="logo" />
+                <span><strong>T-Explorer</strong> - xRhodium</span>
+            </div>
+
+            <div class="margin-container">
+                <div class="dashboard-widget">
+                    <div class="grid grid-responsive grid-12">
+                        <div class="head-search">
+                            <div class="search-form">
+                                <form action="@Url.Action("Process", "Home")" method="post" role="form" id="blockForm">
+                                    <p>You can search for... Block, Transaction, Address</p>
+                                    <div class="form-row">
+                                        <div class="input input-nolabel">
+                                            <i class="fa fa-search"></i><input type="text" name="token" id="token" class="icon large" placeholder="">
+                                            <button class="btn btn-medium btn-block" onclick="App.unlock();">Search</button>
+                                            @Html.AntiForgeryToken()
+                                            <p><small>Example: 8bac56e197943baf896a5365974b599b2945948bd151d440bb4aa73c05bfd224, #1933</small></p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                @RenderBody()
+
+                <div class="grid grid-responsive grid-12">
+                    <div class="dashboard-widget">
+                        <div class="content overflow-none">
+                            <div id="footer">
+                                © Copyright <time class="year">2019</time> <a href="https://www.xrhodium.org/" target="_blank">xRhodium (www.xrhodium.org)</a> - All Rights Reserved
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+	<div id="cookie-notice" role="banner" class="cookie-notice-visible" aria-label="Cookie Notice"><div class="cookie-notice-container"><span id="cn-notice-text" class="cn-text-container">We use Google Analytics cookies only to improve user experience and analyze website traffic. By clicking “Accept“, you agree to our website's cookie use as described in our <a href="/privacy.html" target="_blank">Privacy Policy</a> and <a href="/privacycookies.html" target="_blank">Cookies Policy</a>. You can “Decline” it to remove all these cookies.</span><br /><span id="cn-notice-buttons" class="cn-buttons-container"><a id="cn-decline-cookie" href="#" class="cn-set-cookie cn-button bootstrap button">Decline</a> <a id="cn-accept-cookie" href="#" class="cn-set-cookie cn-button bootstrap button">Accept</a></span></div></div>
+
+        <!-- End -->
+        <div class="clearfix"></div>
+
+    </div>
+
+    @RenderSection("scriptsData", required: false)
+
+    <!-- JavaScript Library -->
+    <script src="/theme/js/library/modernizr-2.6.2.min.js"></script>
+    <script src="/theme/js/library/jquery-1.10.1.min.js"></script>
+    <script src="/theme/js/library/jquery-ui-1.10.3.custom.min.js"></script>
+    <!--[if lte IE 8]>
+    <script src="/theme/js/library/excanvas.min.js"></script>
+    <![endif]-->
+    <!-- Main APP -->
+    <script src="/theme/js/app.js"></script>
+    <!-- Demo -->
+    <script src="/theme/js/main.js"></script>
+    <!-- JavaScript Modules -->
+    <script src="/theme/js/module/module.min.js"></script>
+    <!-- Third Party Plugins -->
+    <script src="/theme/plugins/flot/jquery.flot.min.js"></script>
+    <script src="/theme/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="/theme/plugins/flot/jquery.flot.resize.min.js"></script>
+    <script src="/theme/plugins/flot/jquery.flot.selection.min.js"></script>
+    <script src="/theme/plugins/flot/jquery.flot.time.min.js"></script>
+    <script src="/theme/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="/theme/plugins/flot/jquery.flot.crosshair.min.js"></script>
+    <script src="/theme/plugins/fullcalendar/fullcalendar.min.js"></script>
+    <script src="/theme/plugins/google-code-prettify/prettify.js"></script>
+    <script src="/theme/plugins/ChartJS/Chart.min.js"></script>
+    <script src="/theme/plugins/easy-pie-chart/jquery.easy-pie-chart.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+    @Html.Partial("_ErrorDialog")
+
+</body>
+</html>

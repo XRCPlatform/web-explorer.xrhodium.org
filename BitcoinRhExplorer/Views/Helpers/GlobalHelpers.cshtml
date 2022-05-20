@@ -1,0 +1,165 @@
+﻿@* Generator: MvcHelper GeneratePrettyNames : true *@
+
+@using System.Collections.Specialized
+@using BitcoinRhExplorer.Controllers
+@using BitcoinRhExplorer.Library
+
+@helper ActivePage(string action, string controller)
+{
+    @CheckActive(new[] { action }, controller, null);
+}
+
+@helper ActivePage(string[] action, string controller)
+{
+    @CheckActive(action, controller, null);
+}
+
+@helper ActivePage(string action, string controller, NameValueCollection parameters)
+{
+    @CheckActive(new[] { action }, controller, parameters);
+}
+
+@helper ActivePage(string[] action, string controller, NameValueCollection parameters)
+{
+    @CheckActive(action, controller, parameters);
+}
+
+@helper CheckActive(string[] action, string controller, NameValueCollection parameters)
+{
+    var currentController = View.CurrentPage.ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString();
+    var currentAction = View.CurrentPage.ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+
+    if (currentController == controller)
+    {    
+        if (action.Contains(currentAction))
+        {        
+            if (parameters != null)
+            {
+                bool isOk = true;
+
+                foreach (var itemKey in parameters.AllKeys)
+                {
+                    if (View.Request[itemKey] != parameters[itemKey])
+                    {
+                        isOk = false;
+                    }
+                }
+
+                if (isOk)
+                {
+                    @View.Html.Raw("active")
+                }
+            }
+            else
+            {
+                @View.Html.Raw("active")
+            }
+        }
+    }
+}
+
+@helper GenerateTable(List<List<Tuple<string, string, string>>> cells, string classesTable = "", string classesButtons = "", long offset = 0)
+{
+    if (cells != null && cells.Count > 0)
+    {
+        var header = cells.First();
+
+        <table class="table @classesTable">
+            <tr>
+                @foreach (var value in header)
+                {
+                    <th class="@(string.IsNullOrEmpty(value.Item3) ? "" : value.Item3)">@value.Item1</th>
+                }
+            </tr>
+
+            @{
+                cells.Remove(header);
+                foreach (var item in cells)
+                {
+                    <tr>
+                        @foreach (var value in item)
+                        {
+                            if (value.Item2 == null)
+                            {
+                                <td class="@(string.IsNullOrEmpty(value.Item3) ? "" : value.Item3)">@value.Item1</td>
+                            }
+                            else
+                            {
+                                <td class="@(string.IsNullOrEmpty(value.Item3) ? "" : value.Item3)"><a class="btn @classesButtons" href="@value.Item2">@View.Html.Raw(value.Item1)</a></td>                                
+                            }
+                        }
+                    </tr>
+                }
+            }
+        </table>
+    }
+}
+
+@helper GeneratePagination(long totalItems, int perPageItems, string action, string classes = "", string classesActive = "", long offset = 0)
+{
+    if (totalItems > perPageItems)
+    {
+        var pages = totalItems/perPageItems - 1;
+        var overfille = totalItems%perPageItems;
+        var actualPage = offset/perPageItems;
+
+        if ((overfille > 0) && (overfille <= 5))
+        {
+            pages++;
+        }
+
+        if (action.IsAny() && action.Contains("?"))
+        {
+            action += "&";
+        }
+        else
+        {
+            action += "?";
+        }
+                
+        <ul class="pagination @classes">
+            
+            @if (actualPage != 0) {
+                <li class="first"><a href="@(action)offset=@(perPageItems*actualPage-perPageItems)">&laquo;</a></li>
+            }        
+            
+            @if (actualPage > 0)
+            {
+                for (int i = ((int)actualPage - 2); i < ((int)actualPage); i++)
+                {
+                    if (i >= 0)
+                    {
+                        <li><a href="@(action)offset=@(perPageItems*i)">@(i + 1)</a></li>
+                    }
+                }
+            }
+            
+            <li class="@classesActive"><a href="@(action)offset=@(perPageItems*actualPage)">@(actualPage + 1)</a></li>
+        
+            @if (actualPage < pages)
+            {
+                for (int i = ((int)actualPage + 1); i < ((int)actualPage + 3); i++)
+                {
+                    if (i <= pages)
+                    {
+                        <li><a href="@(action)offset=@(perPageItems*i)">@(i + 1)</a></li>
+                    }
+                }
+                
+                <li class="last"><a href="@(action)offset=@(perPageItems*actualPage+perPageItems)">&raquo;</a></li>
+            }           
+        </ul>
+    }
+}
+
+@helper GetShortText(string text, int length)
+{
+    if (text.Length > length)
+    {
+        @View.Html.Raw(text.Substring(0, length) + "...")
+    }
+    else
+    {
+        @View.Html.Raw(text)
+    }
+}

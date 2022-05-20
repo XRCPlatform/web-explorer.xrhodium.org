@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Error_SaveAvatarToDisk" xml:space="preserve">
+    <value>Error occurs during saving your avatar</value>
+  </data>
+  <data name="Error_SaveImageToDisk" xml:space="preserve">
+    <value>Error occurs during saving your image</value>
+  </data>
+  <data name="Error_WrongExtension" xml:space="preserve">
+    <value>Wrong Extension</value>
+  </data>
+  <data name="Id_Label" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="IsPublished_Label" xml:space="preserve">
+    <value>Published</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Registration_Error_Invalid" xml:space="preserve">
+    <value>Email or password is invalid.</value>
+  </data>
+  <data name="Registration_Error_InvalidPassword" xml:space="preserve">
+    <value>The passwords arent identical.</value>
+  </data>
+  <data name="Registration_Error_UserAlreadyExists" xml:space="preserve">
+    <value>The account with this user name already exists.</value>
+  </data>
+  <data name="Registration_Error_WrongEmail" xml:space="preserve">
+    <value>No valid email submitted.</value>
+  </data>
+  <data name="Text_Label" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Title_Label" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="User_Avatar_Label" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="User_Edit_Title" xml:space="preserve">
+    <value>Edit user</value>
+  </data>
+  <data name="User_Email_Label" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="User_FirstName_Label" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="User_Language_Label" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="User_LastName_Label" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="User_New_Title" xml:space="preserve">
+    <value>New user</value>
+  </data>
+  <data name="User_PasswordVerify_Label" xml:space="preserve">
+    <value>Password Verify</value>
+  </data>
+  <data name="User_Password_Label" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="User_Phone_Label" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="User_Role_Label" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="User_UserName_Label" xml:space="preserve">
+    <value>UserName</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="ParentCategory_Empty_Field" xml:space="preserve">
+    <value>No category</value>
+  </data>
+  <data name="ParentCategory_Label" xml:space="preserve">
+    <value>Parent category</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>Copyright 2017 DutyEx.com</value>
+  </data>
+  <data name="Tags_Title" xml:space="preserve">
+    <value>Populární odkazy</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginOr" xml:space="preserve">
+    <value>Login or</value>
+  </data>
+  <data name="LostPassword" xml:space="preserve">
+    <value>Lost Password</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>Or</value>
+  </data>
+  <data name="Placeholder_email" xml:space="preserve">
+    <value>email</value>
+  </data>
+  <data name="Placeholder_password" xml:space="preserve">
+    <value>password</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="LoginError_NoValidToken" xml:space="preserve">
+    <value>Login error: no valid data. Please try again.</value>
+  </data>
+  <data name="PageTitle_RegisterIndex" xml:space="preserve">
+    <value>User sign up</value>
+  </data>
+  <data name="Registration_Error_UserEmailAlreadyExists" xml:space="preserve">
+    <value>The account with this email already exists.</value>
+  </data>
+  <data name="LostPassword_BtnSendMail" xml:space="preserve">
+    <value>Send password</value>
+  </data>
+  <data name="LostPassword_Content" xml:space="preserve">
+    <value>In case you lost your password, send it to your email entered below</value>
+  </data>
+  <data name="LostPassword_EmailDoesntExist" xml:space="preserve">
+    <value>User does not exist</value>
+  </data>
+  <data name="LostPassword_EmailSubject" xml:space="preserve">
+    <value>BitcoinRhExplorer - Lost password</value>
+  </data>
+  <data name="LostPassword_MailSended" xml:space="preserve">
+    <value>Email was sent.</value>
+  </data>
+  <data name="LostPassword_PasswordSended" xml:space="preserve">
+    <value>Password was sent to provided email.</value>
+  </data>
+  <data name="PageTitle_LostPasswordIndex" xml:space="preserve">
+    <value>Lost password</value>
+  </data>
+  <data name="Register_BtnSend" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="Registration_Error_EmptyForm" xml:space="preserve">
+    <value>Empty data was entered.</value>
+  </data>
+  <data name="Registration_Error_UserNameTooShort" xml:space="preserve">
+    <value>Username is too short. Try longer.</value>
+  </data>
+  <data name="LoginError_ProviderUnConfirm" xml:space="preserve">
+    <value>Přihlášení přes sociální síť se nezdařilo. Zkuste to prosím znovu.</value>
+  </data>
+  <data name="Login_FinalizeExternalLogin" xml:space="preserve">
+    <value>Dokončení registrace přes sociální síť</value>
+  </data>
+  <data name="IsWinner_Label" xml:space="preserve">
+    <value>Are you winner?</value>
+  </data>
+  <data name="User_Empty_Field" xml:space="preserve">
+    <value>Anonymous user</value>
+  </data>
+  <data name="User_Label" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Value_Label" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Quantity_Label" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Url_Label" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="YouTubeUrl_Label" xml:space="preserve">
+    <value>YouTube link</value>
+  </data>
+  <data name="ProfilePassword_Updated" xml:space="preserve">
+    <value>The password has been updated</value>
+  </data>
+  <data name="Profile_Updated" xml:space="preserve">
+    <value>Profile has been updated</value>
+  </data>
+  <data name="WebTitle" xml:space="preserve">
+    <value>DutyEx</value>
+  </data>
+  <data name="LostPassword_NewTemporary" xml:space="preserve">
+    <value>Your temporary new password is: {0}&lt;br&gt;Please change it after your login!&lt;br&gt;&lt;br&gt;BitcoinRhExplorer&lt;br&gt;https://www.BitcoinRhExplorer.com</value>
+  </data>
+  <data name="AirDrop_Error_AddressAlreadyExists" xml:space="preserve">
+    <value>The BitCoin address already exists.</value>
+  </data>
+  <data name="AirDrop_Error_WrongAddress" xml:space="preserve">
+    <value>No valid BitCoin address submitted.</value>
+  </data>
+  <data name="AirDrop_Error_WrongEmail" xml:space="preserve">
+    <value>No valid email submitted.</value>
+  </data>
+  <data name="AirDrop_Error_WrongSignature" xml:space="preserve">
+    <value>No valid signature submitted.</value>
+  </data>
+</root>

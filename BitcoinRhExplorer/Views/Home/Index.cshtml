@@ -1,0 +1,237 @@
+﻿@using BitcoinRhExplorer.Controllers
+@using NBitcoin
+@using System.Globalization
+
+@model HomeViewModel
+
+@section scriptsData {
+    <script type="text/javascript">
+
+var diff_datagrid = [];
+var diff_max = 0;
+
+        @if (Model.DiffStats != null)
+        {
+            var maxDiff = Model.DiffStats.Max(d => d.Diff) + 1000;
+            @Html.Raw("diff_max = " + Math.Round(maxDiff) + ";" + Environment.NewLine);
+
+            foreach (var itemDiff in Model.DiffStats)
+            {
+                @Html.Raw("diff_datagrid.push([" + itemDiff.Height + "," + Math.Round(itemDiff.Diff) + "]);" + Environment.NewLine);
+            }
+        }
+
+    var txout_datagrid = [];
+    var txout_min = 0;
+    var txout_max = 0;
+
+        @if (Model.TxOuts != null)
+        {
+            var maxTxOut = Model.TxOuts.Max(d => d.TotalOut) + 10;
+
+            maxTxOut = Money.FromUnit(maxTxOut, MoneyUnit.Satoshi).ToUnit(MoneyUnit.XRC);
+            var minTxOutHeight = Model.TxOuts.Min(d => d.Height);
+            @Html.Raw("txout_max = " + Math.Round(maxTxOut) + ";" + Environment.NewLine);
+            @Html.Raw("txout_min = " + minTxOutHeight + ";" + Environment.NewLine);
+
+            foreach (var itemTxOut in Model.TxOuts)
+            {
+                var outValue = itemTxOut.TotalOut;
+
+                outValue = Money.FromUnit(outValue, MoneyUnit.Satoshi).ToUnit(MoneyUnit.XRC);
+                @Html.Raw("txout_datagrid.push([" + itemTxOut.Height + ", " + Math.Round(outValue) + "]);" + Environment.NewLine);
+            }
+        }
+    </script>
+}
+
+@section scripts {
+    <script type="text/javascript">
+        App.setOptions({
+            spa: false
+        });
+
+        dashboardPage();
+
+            $(document).ready(function () {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Data/GetBlocks/',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (response) {
+
+                        var output = "";
+
+                        if (response == "[]") {
+                            output = "<p>Blocks doesnt exist!</p>";
+                        } else {
+
+                            var blocks = $.parseJSON(response);
+                            var templateLine = "<tr><td><a href=\"%%TLINK\">#%%THEIGHT</a></td><td>%%TAGE</td><td>%%TTRANSCOUNT</td><td>%%TBTR XRC</td><td>%%TSIZE b</td></tr>";
+
+                            if (blocks != null) {
+                                for (var i = 0; i < blocks.length; i++) {
+                                    var block = blocks[i];
+                                    var template = templateLine;
+
+                                    template = template.replace("%%TLINK", block.Url);
+                                    template = template.replace("%%THEIGHT", block.Height);
+                                    template = template.replace("%%TAGE", block.DateTime);
+                                    template = template.replace("%%TTRANSCOUNT", block.TxCount);
+                                    template = template.replace("%%TBTR", block.Money);
+                                    template = template.replace("%%TSIZE", block.Size);
+
+                                    output = output + template;
+                                }
+
+                            }
+
+                            output = $('#blockTemplate').find('table').append(output);
+                        }
+                        $('#blocksData').html(output);
+                    }
+                });
+
+                var percentSupply = @Model.PercentSupply;
+                var percentBlock = @Model.PercentBlock;
+                setTimeout(function () {
+                    $('#coin-count-chart').data('easyPieChart').update(percentSupply);
+                    $('#mempool-chart').data('easyPieChart').update(percentBlock);
+                }, 1000);
+
+                $('#coin-count').text('@Model.ActualSupplyFormated XRC');
+            });
+    </script>
+}
+
+<div class="clearfix"></div>
+
+<div class="grid grid-responsive grid-9">
+    <div class="grid grid-responsive grid-6">
+        <!-- Area Chart (Flot) -->
+        <div class="dashboard-widget">
+            <div class="title">
+                Difficulty changes
+            </div>
+            <div class="content">
+                <div id="dashboard-line-chart"></div>
+            </div>
+        </div>
+        <!-- End -->
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="grid grid-responsive grid-6">
+        <!-- Area Chart (Flot) -->
+        <div class="dashboard-widget">
+            <div class="title">
+                Transactions - Last 50 blocks
+            </div>
+            <div class="content">
+                <div id="dashboard-area-chart"></div>
+            </div>
+        </div>
+        <!-- End -->
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+    @if ((Model.MemPool != null) && (Model.MemPool.Any()))
+    {
+        <div class="dashboard-widget">
+            <div class="title">
+                MemPool Info (cached)
+            </div>
+            <div class="content">
+                <div id="memtxTemplate" class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>TxId</th>
+                                <th class="minor">XRC</th>
+                                <th class="minor">Fee</th>
+                                <th class="minor">Size</th>
+                            </tr>
+                        </thead>
+                        @foreach (var itemMemTx in Model.MemPool)
+                        {
+                            Transaction memTxInfo = null;
+                            if (Model.MemPoolTxs.TryGetValue(itemMemTx.Key, out memTxInfo))
+                            {
+                                <tr>
+                                    <td>@itemMemTx.Key</td>
+                                    <td>@memTxInfo.TotalOut.ToUnit(MoneyUnit.XRC).ToString(CultureInfo.InvariantCulture) XRC</td>
+                                    <td>@itemMemTx.Value.Fee.ToString(CultureInfo.InvariantCulture) XRC</td>
+                                    <td>@itemMemTx.Value.Size b</td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    }
+
+    <div class="dashboard-widget">
+        <div class="title">
+            Latest Blocks (cached)
+        </div>
+        <div class="content">
+            <div id="blocksData" class="data-table">
+                <p>PLEASE WAIT...</p>
+                <i class="fa fa-spinner fa-spin fa-3x text-block"></i>
+            </div>
+            <div id="blockTemplate" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Height</th>
+                            <th>Age (UTC)</th>
+                            <th>Total transactions</th>
+                            <th class="minor">Total XRC</th>
+                            <th class="minor">Size</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="grid grid-responsive grid-3">
+    <div class="dashboard-widget">
+        <div class="title">
+            Statistics
+        </div>
+        <div class="content overflow-none">
+            <div class="sidebar-widget img-info">
+                <a href="https://www.xrhodium.org/En/StrongHandsAirdrop">
+                    <img src="~/theme/airdrop.jpg?v2" alt="AirDrop to xRhodium Holders" />
+                </a>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget-title" id="mempool-size">@Model.MemPoolInfo.Size Txs in MemPool</div>
+                <div class="sidebar-widget-subtitle">Block Usage<br /><small>(max 4 MB)</small></div>
+                <div class="circular-pie easyPieChart" id="mempool-chart" data-percent="0" data-color="#F3DEA8" style="width: 110px; height: 110px; line-height: 110px;"><span>@Model.MemPoolInfo.Usage %</span><canvas width="110" height="110"></canvas></div>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget-title" id="coin-count"></div>
+                <div class="sidebar-widget-subtitle">In circulation<br /><small>(Exclude SH and DEV address)</small></div>
+                <div class="circular-pie easyPieChart" id="coin-count-chart" data-percent="0" data-color="#F3DEA8" style="width: 110px; height: 110px; line-height: 110px;"><span>0%</span><canvas width="110" height="110"></canvas></div>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget-subtitle">Links</div>
+                <ul class="list no-style">
+                    <li><i class="fa fa-globe"></i> <a href="https://www.xrhodium.org/">xRhodium WebSite</a></li>
+                    <li><i class="fa fa-globe"></i> <a href="https://www.electrumxrc.org/">Electrum Wallet</a></li>
+                    <li><i class="fa fa-globe"></i> <a href="https://explorer.xrhodium.org/">xRhodium Explorer</a></li>
+                    <li><i class="fa fa-globe"></i> <a href="http://poolcore.xrhodium.org/">xRhodium Mining Pool</a></li>
+                    <li><i class="fa fa-globe"></i> <a href="https://blockcore.xrhodium.org/">Blockcore Wallet</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

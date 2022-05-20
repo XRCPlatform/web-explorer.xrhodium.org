@@ -1,0 +1,106 @@
+﻿@using BitcoinRhExplorer.Controllers
+@using BitcoinRhExplorer.Library
+@using BitcoinRhExplorer.Server
+@using BitcoinRhExplorer.Resources
+
+@{
+    var exceptions = BitcoinRhExplorerServer.Current.Errors.GetAllAndClear( HttpContext.Current.Session.SessionID);
+    var message = string.Empty;
+}
+
+@if (exceptions.Any())
+{
+    ExtendedException lastException = null;
+    var exceptionHigh = exceptions.Where(e => e.Priority == ExceptionPriority.High);
+    var exceptionNormal = exceptions.Where(e => e.Priority == ExceptionPriority.Normal);
+
+    if (exceptionHigh.Any())
+    {
+        foreach (var exception in exceptionHigh)
+        {
+            lastException = exception;
+            message = exception.Exception.Message.Replace(Environment.NewLine, " ");
+        }
+    }
+    else
+    {
+        foreach (var exception in exceptionNormal)
+        {
+            lastException = exception;
+            message = exception.Exception.Message;
+        }
+    }
+
+
+    if (lastException != null)
+    {
+        var redirectUrl = string.IsNullOrEmpty(lastException.RedirectUrl) ? string.Empty : lastException.RedirectUrl;
+        var dialogType = Enum.GetName(typeof(ExtendedDialogType), lastException.DialogType);
+
+        if (lastException.Type == ExtendedTypes.Ok)
+        {
+             <script type="text/javascript">
+                 $(document).ready(function () {
+                     App.dialog.open({
+                         width: 500,
+                         title: '@dialogType',
+                         content: '@message',
+                         theme: 'block',
+                         buttons: [
+                             {
+                                 text: 'Ok',
+                                 icon: 'fa fa-times',
+                                 click: function (evt, btn) {
+                            @if (redirectUrl != string.Empty)
+                            {
+                                @Html.Raw("window.location.href = \"" + redirectUrl + "\";");
+                            } else
+                            {
+                                @Html.Raw("App.dialog.close();");
+                            }
+                                 }
+                             }
+                        ]
+                     });
+                 });
+             </script>
+        }
+        else
+        {
+             <script type="text/javascript">
+                 $(document).ready(function () {
+                     App.dialog.open({
+                         width: 500,
+                         title: '@dialogType',
+                         content: '@message',
+                         theme: 'block',
+                         buttons: [
+                             {
+                                 text: 'Cancel',
+                                 icon: 'fa fa-floppy-o',
+                                 click: function (evt, btn) {
+                                    App.dialog.close();
+                                 }
+                             },
+                             {
+                                 text: 'Ok',
+                                 icon: 'fa fa-times',
+                                 click: function (evt, btn) {
+                            @if (redirectUrl != string.Empty)
+                            {
+                                @Html.Raw("window.location.href = \"" + redirectUrl + "\";");
+                            } else
+                            {
+                                @Html.Raw("App.dialog.close();");
+                            }
+                                 }
+                             }
+                        ]
+                     });
+                 });
+
+             </script>
+        }
+    }
+}
+

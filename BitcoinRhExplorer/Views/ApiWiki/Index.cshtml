@@ -1,0 +1,61 @@
+﻿@section scripts {
+    <script type="text/javascript">
+        App.setOptions({
+            spa: false
+        });
+
+        subPage();
+    </script>
+}
+
+<div class="grid grid-responsive grid-12">
+    <div class="dashboard-widget">
+        <div class="title">
+            REST API
+        </div>
+        <div class="content">
+            <h2>Get Circulation Supply (Exclude Strong Hands and Dev address)</h2>
+            <p>Money Unit = 0 return amount in XRC<br />Money Unit = 1 return amount in Satoshi</p>
+            <pre>https://explorer.xrhodium.org/api/data/getcirculationsupply?moneyUnit=0</pre>
+            <p><strong>Example of result:</strong></p>
+<pre class="prettyprint">
+"826532"
+</pre>
+            <h2 style="padding-top: 25px">Get Total Supply (Include Strong Hands and Dev address)</h2>
+            <p>Money Unit = 0 return amount in XRC<br />Money Unit = 1 return amount in Satoshi</p>
+            <pre>https://explorer.xrhodium.org/api/data/gettotalsupply?moneyUnit=0</pre>
+            <p><strong>Example of result:</strong></p>
+            <pre class="prettyprint">
+"1115545"
+</pre>
+            <h2 style="padding-top: 25px">Get Max Supply</h2>
+            <p>Money Unit = 0 return amount in XRC<br />Money Unit = 1 return amount in Satoshi</p>
+            <pre>https://explorer.xrhodium.org/api/data/getmaxsupply?moneyUnit=0</pre>
+            <p><strong>Example of result:</strong></p>
+<pre class="prettyprint">
+"2100000"
+</pre>
+            <h2 style="padding-top: 25px">Get Rich Addresses</h2>
+            <p>
+                Return first 1000 addresses with Satoshi amount.
+                <br />This RroWuS88YM3d646sSvFsm9iXLVLvEjkx34 address is a Strong Hold address.
+            </p>
+            <pre>https://explorer.xrhodium.org/api/data/getrich</pre>
+            <p><strong>Example of result:</strong></p>
+<pre class="prettyprint">
+"[{\"$id\":\"1\",\"Address\":\"RroWuS88YM3d646sSvFsm9iXLVLvEjkx34\",\"Height\":16027,\"Amount\":25714891626471.00}, ...
+</pre>
+
+            <h2 style="padding-top: 25px">Get Network Info</h2>
+            <p>Return base information about network.</p>
+            <pre>https://network.xrhodium.org/api/data/getnetworkinfo</pre>
+            <p><strong>Example of result:</strong></p>
+            <pre class="prettyprint">
+"{\"blocks\":37308,\"difficulty\":640142.60229229764,\"networkhashps\":4890272631844.0}"
+</pre>
+
+            <p><br />For other APIs ask us in <a href="https://discord.gg/WmxceSm">Discord </a></p>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>

@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BitcoinRhExplorer.Entities.Stats
+{
+    public class DiffStat : RichEntity
+    {
+        public double Diff { get; set; }
+        public int Height { get; set; }
+    }
+}

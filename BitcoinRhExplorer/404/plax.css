@@ -1,0 +1,83 @@
+/*  Theme Name:     Jackrabbit 3.0 404 Page theme
+    Theme URI:      n/a
+    Description:    Updated Rabbit Hole
+    Version:        3.0
+    Author:         Jackrabbit Design
+    Author URI:     http://jumpingjackrabbit.com
+    This site was designed and built by Jackrabbit Design, whose website you will find at jumpingjackrabbit.com */
+
+/* ========================================================================= */
+/* FONTS (@fontface generated with FontSpring Syntax formatting              */
+/* ========================================================================= */
+    
+    @font-face {
+        font-family: 'Raleway';
+        src: url('fonts/Raleway/raleway-regular-webfont.eot');
+        src: url('fonts/Raleway/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'),
+             url('fonts/Raleway/raleway-regular-webfont.woff') format('woff'),
+             url('fonts/Raleway/raleway-regular-webfont.ttf') format('truetype'),
+             url('fonts/Raleway/raleway-regular-webfont.svg#ralewayregular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    
+    @font-face {
+        font-family: 'Raleway';
+        src: url('fonts/Raleway/raleway-extralight-webfont.eot');
+        src: url('fonts/Raleway/raleway-extralight-webfont.eot?#iefix') format('embedded-opentype'),
+             url('fonts/Raleway/raleway-extralight-webfont.woff') format('woff'),
+             url('fonts/Raleway/raleway-extralight-webfont.ttf') format('truetype'),
+             url('fonts/Raleway/raleway-extralight-webfont.svg#ralewayextralight') format('svg');
+        font-weight:300;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Raleway';
+        src: url('fonts/Raleway/raleway-bold-webfont.eot');
+        src: url('fonts/Raleway/raleway-bold-webfont.eot?#iefix') format('embedded-opentype'),
+             url('fonts/Raleway/raleway-bold-webfont.woff') format('woff'),
+             url('fonts/Raleway/raleway-bold-webfont.ttf') format('truetype'),
+             url('fonts/Raleway/raleway-bold-webfont.svg#ralewaybold') format('svg');
+        font-weight: 700;
+        font-style: normal;
+    }
+    
+/* ========================================================================= */
+/* RESET                                                                     */
+/* ========================================================================= */
+
+    html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,a,hr,acronym,dl,dt,dd,ol,ul,li,pre,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{border:0;outline:0;font-style:normal;font-weight:400;font-size:100%;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}li{list-style:none}a{text-decoration:none}blockquote:before,blockquote:after,q:before,q:after{content:""}table{border-collapse:collapse;border-spacing:0}/*hr{display:block;height:1px;border-top:1px solid #000;color:#000}*/input,select{vertical-align:middle}sub{vertical-align:sub;font-size:smaller}sup{vertical-align:super;font-size:smaller}input,button,textarea,select,label{display:inline-block;}input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit}button{ border:0; text-align:center; cursor:pointer;}img{display: block;}button::-moz-focus-inner {border: 0;}html{overflow-y: scroll;}
+
+
+/* ========================================================================= */
+/* LAYOUT STYLES                                                          */
+/* ========================================================================= */
+
+
+html, body { /*background: #294344 url(jsbackground.jpg) no-repeat 50% 70%;*/ background: #809895; margin: 0; padding: 0; min-width:960px; height: 100%; overflow: hidden; }
+img {display:inline}
+#parallax {position:absolute; overflow:hidden; width: 100%; height:3000px; top: 0; right: 0; left: 0; bottom: 0;}
+
+#sky { height: 3000px; width: 3000px; background: url(bg_sky.gif) repeat-x 50% 0; text-align: center; z-index: 0; position: absolute; top: 0; left: 50%; margin: 0 0 0 -1500px; }
+#sky img { padding: 130px 0 0 4px; }
+#mountains { height: 3000px; width: 3500px; background: url(bg_mountains.png) repeat-x 50% 100px; z-index: 0; position: absolute; top: 0; left: 50%; margin: 0 0 0 -1750px; }
+#trees { height: 3000px; width: 4000px; background: url(bg_trees.png) repeat-x 50% 200px; z-index: 0; position: absolute; top: 0; left: 50%; margin: 0 0 0 -2000px; }
+#rabbit { height: 3000px; width: 4500px; background: url(bg_rabbit.png) no-repeat 70% 180px; z-index: 0; position: absolute; top: 0; left: 50%; margin: 0 0 0 -2250px; }
+#hill { height: 3000px; width: 5000px; background: url(bg_hill.png) no-repeat 50% 400px; z-index: 0; position: absolute; top: 0; left: 50%; margin: 0 0 0 -2500px; }
+#sign { height: 3000px; width: 5500px; background: url(bg_sign.png) no-repeat 22% 350px; z-index: 0; position: absolute; top: 0; left: 50%; margin: 0 0 0 -2750px; }
+#content { height: 3000px; width: 4500px; z-index: 0; position: absolute; top: 0; left: 50%; margin: -20px 0 0 -2250px; }
+#content a.logo { display: inline-block; margin: 0 0 15px 0; }
+
+#content404 { position: relative; z-index: 999; width: 960px; margin: 100px auto 0 auto;  }
+#content404 h2 { color: #9CD7F7; font: 300 56px/100% 'Raleway', Helvetica, Arial, sans-serif;margin-bottom:10px }
+#content404 a.downloadlink { color: #9CD7F7; font: normal 14px/150% Raleway, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif; margin: 20px 0 10px 0;background:url(icon_download.png) right 4px no-repeat;padding-right:20px;display:inline-block;text-decoration:none;letter-spacing:0px }
+#content404 a.downloadlink:hover {background:url(icon_download.png) right -96px no-repeat;color:#9CD7F7}
+#content404 a { color: #9CD7F7;text-decoration:underline }
+#content404 a:hover { color: #fff;text-decoration:none }
+#content404 p { font: 300 22px/150% "Raleway", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;letter-spacing:-1px }
+
+.download { background: rgba(0, 0, 0, .4); padding: 5px 10px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; display: inline-block; *display: inline; *zoom: 1; position: absolute; z-index: 999;display:none }
+.download a { font: normal 12px/150% Raleway, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif; text-decoration: none; display: inline-block;padding:2px 3px }
+.download a:hover { color: #fff;}
